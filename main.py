@@ -2,15 +2,35 @@ import speech_recognition as sr
 import webbrowser
 import pyttsx3
 import musicLibrary
-import requests
+from gtts import gTTS
+import pygame
+import time
+import os
+from client import aiProcess
 
 recognaizer = sr.Recognizer()
 engine = pyttsx3.init()
-# news_api = "be29a230439a4eb0a226846059a57784"
 
-def speak(text: str):
+# I added just for study purpose
+def old_speak(text: str): #Not using due to bad unser interface
     engine.say(text)
     engine.runAndWait()
+
+# New speak fucntion
+def speak(text: str):
+    tts = gTTS(text)
+    tts.save('tempaudio.mp3')
+
+    pygame.mixer.init()
+    pygame.mixer.music.load("tempaudio.mp3")
+    pygame.mixer.music.play()
+
+    while pygame.mixer.music.get_busy():
+        time.sleep(1)
+
+    pygame.mixer.music.unload()  # Optional but good practice  
+    os.remove("tempaudio.mp3")
+
 
 def processCommand(command):
     if "open google" in command.lower():
@@ -29,23 +49,10 @@ def processCommand(command):
         song = command.lower().split(" ")[1]
         link = musicLibrary.music[song]
         webbrowser.open(link)
+    else:
+        output = aiProcess(command)
+        speak(output)
 
-    # elif "news" in command.lower():
-    #     r = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={news_api}")
-    #     if r.status_code == 200:
-    #         # Parse the JSON response
-    #         data = r.json()
-            
-    #         # Extract the articles
-    #         articles = data.get('articles', [])
-            
-    #         # Print the headlines
-    #         for article in articles:
-    #             speak(article['title'])
-
-    #     else:
-    #         # Let open ai handle the request
-    #         pass
     
 if __name__ == "__main__" :
     speak("Initializing your personal assistant AD....")
