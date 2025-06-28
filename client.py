@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 endpoint = "https://models.github.ai/inference"
 model = "openai/gpt-4.1"
 
+# Loading envoirment varriables
 load_dotenv()
 
 # Ai Processing
