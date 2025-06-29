@@ -12,24 +12,25 @@ recognaizer = sr.Recognizer()
 engine = pyttsx3.init()
 
 # I added just for study purpose
-def old_speak(text: str): #Not using due to bad unser interface
+def speak(text: str): #Not using due to bad unser interface
     engine.say(text)
     engine.runAndWait()
 
+
 # New speak fucntion
-def speak(text: str):
-    tts = gTTS(text)
-    tts.save('tempaudio.mp3')
+# def old_speak(text: str ):
+#     tts = gTTS(text)
+#     tts.save('tempaudio.mp3')
 
-    pygame.mixer.init()
-    pygame.mixer.music.load("tempaudio.mp3")
-    pygame.mixer.music.play()
+#     pygame.mixer.init()
+#     pygame.mixer.music.load("tempaudio.mp3")
+#     pygame.mixer.music.play()
 
-    while pygame.mixer.music.get_busy():
-        time.sleep(1)
+#     while pygame.mixer.music.get_busy():
+#         time.sleep(1)
 
-    pygame.mixer.music.unload()  # Optional but good practice  
-    os.remove("tempaudio.mp3")
+#     pygame.mixer.music.unload()  # Optional but good practice  
+#     os.remove("tempaudio.mp3")
 
 
 def processCommand(command):
