@@ -10,14 +10,12 @@ model = "openai/gpt-4.1"
 # Loading envoirment varriables
 load_dotenv()
 
-TOKEN = "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"
-
 # Ai Processing
 def aiProcess(command) :
 
     client = ChatCompletionsClient(
         endpoint=endpoint,
-        credential=AzureKeyCredential(TOKEN),
+        credential=AzureKeyCredential(os.getenv("TOKEN"))  # Ensure you have set the TOKEN in your .env file,
     )
     response = client.complete(
         messages=[
