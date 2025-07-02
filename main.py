@@ -59,7 +59,8 @@ if __name__ == "__main__" :
     speak("Initializing your personal assistant AD....")
     
     while True:
-        # Listen for the wake word AD
+        # Say hello to wake me up
+        
         # Obtain audio from the Microphone
 
         r = sr.Recognizer()
@@ -73,7 +74,7 @@ if __name__ == "__main__" :
                 print("Listening....")
                 audio = r.listen(source)
                 word = r.recognize_google(audio)
-                if(word.lower() == "hello ad"):
+                if(word.lower() == "hello"):
                     speak("Yeah")
                     #Listen for command
                     with sr.Microphone() as source:
